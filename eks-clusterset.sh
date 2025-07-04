@@ -9,7 +9,7 @@ eksctl version
 # Create EKS cluster without nodegroup
 echo "Creating EKS cluster without nodegroup..."
 eksctl create cluster \
-  --name Kubernetes \
+  --name Charan \
   --region us-east-1 \
   --version 1.32 \
   --zones us-east-1a,us-east-1b \
@@ -17,7 +17,7 @@ eksctl create cluster \
 
 # Update kubeconfig to connect kubectl with cluster
 echo "Updating kubeconfig..."
-aws eks --region us-east-1 update-kubeconfig --name Kubernetes
+aws eks --region us-east-1 update-kubeconfig --name Charan
 
 # Download and install latest kubectl
 echo "Installing kubectl..."
@@ -28,7 +28,7 @@ kubectl version --client
 
 # Associate IAM OIDC provider
 echo "Associating IAM OIDC Provider..."
-eksctl utils associate-iam-oidc-provider --region us-east-1 --cluster Kubernetes --approve 
+eksctl utils associate-iam-oidc-provider --region us-east-1 --cluster Charan --approve 
 
 # Delete existing nodegroup (if exists)
 echo "Deleting existing nodegroup (if any)..."
@@ -37,7 +37,7 @@ eksctl delete nodegroup --cluster=Kubernetes --region=us-east-1 --name=workernod
 # Create new nodegroup
 echo "Creating nodegroup..."
 eksctl create nodegroup \
-  --cluster=Kubernetes \
+  --cluster=Charan \
   --region=us-east-1 \
   --name=workernode \
   --node-type t3.small \
@@ -58,9 +58,9 @@ eksctl create nodegroup \
 # Commented out to avoid overwrite, uncomment only if required
 
 # echo "Installing kubectl v1.21.14 (optional overwrite)..."
-# curl -LO https://dl.k8s.io/release/v1.21.14/bin/linux/amd64/kubectl
-# sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-# kubectl version --client
+curl -LO https://dl.k8s.io/release/v1.21.14/bin/linux/amd64/kubectl
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+kubectl version --client
 
 # Get nodes
 echo "Getting node list..."
