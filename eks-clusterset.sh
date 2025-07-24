@@ -32,7 +32,7 @@ eksctl utils associate-iam-oidc-provider --region us-east-1 --cluster Charan --a
 
 # Delete existing nodegroup (if exists)
 echo "Deleting existing nodegroup (if any)..."
-eksctl delete nodegroup --cluster=Kubernetes --region=us-east-1 --name=workernode || echo "No existing nodegroup found"
+# eksctl delete nodegroup --cluster=Kubernetes --region=us-east-1 --name=workernode || echo "No existing nodegroup found"
 
 # Create new nodegroup
 echo "Creating nodegroup..."
@@ -41,9 +41,9 @@ eksctl create nodegroup \
   --region=us-east-1 \
   --name=workernode \
   --node-type t3.small \
-  --nodes 2 \
-  --nodes-min 2 \
-  --nodes-max 4 \
+  --nodes 3 \
+  --nodes-min 3 \
+  --nodes-max 5 \
   --node-volume-size 20 \
   --ssh-access \
   --ssh-public-key kubernetes \
